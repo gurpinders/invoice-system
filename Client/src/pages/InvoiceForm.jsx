@@ -92,6 +92,21 @@ function InvoiceForm(){
         }
     }
 
+    const handleDeleteEntry = async (entryId) => {
+        if (window.confirm('Are you sure you want to delete this entry?')) {
+          try {
+            const response = await axios.delete(
+              `http://localhost:3001/api/invoices/${invoiceId}/entries/${entryId}`
+            );
+            setEntries(response.data.entries);
+            alert('Entry deleted successfully!');
+          } catch (error) {
+            console.error('Error deleting entry:', error);
+            alert('Error deleting entry');
+          }
+        }
+    };
+
     useEffect(() =>{
         fetchLocations();
         if(isEditMode){
@@ -215,11 +230,19 @@ function InvoiceForm(){
                     <td>{entry.weight}</td>
                     <td>${entry.ratePerTonne}</td>
                     <td>${(entry.weight * entry.ratePerTonne).toFixed(2)}</td>
-                    <td><button>Delete</button></td>
+                    <td><button onClick={() => handleDeleteEntry(entry._id)}>Delete</button></td>
                 </tr>
                 ))}
             </tbody>
             </table>
+            {entries.length > 0 && (
+            <div>
+                <h3>Invoice Totals</h3>
+                <p>Subtotal: ${entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0).toFixed(2)}</p>
+                <p>Less 7% Fee: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.07).toFixed(2)}</p>
+                <p><strong>Total: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.93).toFixed(2)}</strong></p>
+            </div>
+            )}
         </div>
     )
 }

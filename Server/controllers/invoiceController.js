@@ -50,12 +50,12 @@ async function deleteEntry(req, res) {
   try {
     const { id, entryId } = req.params;
     const invoice = await Invoice.findById(id);
-    if(!invoice){
-      return res.status(404).json({message: "Invoice Not Found! "});
+    if (!invoice) {
+      return res.status(404).json({ message: "Invoice Not Found! " });
     }
     invoice.entries.pull(entryId);
     await invoice.save();
-    res.status(200).json({message: "Entry Deleted Successfully! "})
+    res.status(200).json(invoice);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -120,5 +120,5 @@ export {
   createInvoice,
   addEntry,
   deleteInvoice,
-  deleteEntry
+  deleteEntry,
 };
