@@ -2,6 +2,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import invoiceRoutes from "./routes/invoiceRoutes.js";
 import rateRoutes from "./routes/rateRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js";
 
 const app = express();
 const port = 3001;
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/rates", rateRoutes);
+app.use("/api/locations", locationRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from server!");

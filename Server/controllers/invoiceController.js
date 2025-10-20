@@ -10,18 +10,52 @@ async function createInvoice(req, res) {
   }
 }
 
+async function deleteInvoice(req, res) {
+  try {
+    const { id } = req.params;
+    const deletedInvoice = await Invoice.findByIdAndDelete(id);
+    if (!deletedInvoice) {
+      return res.status(404).json({ message: "Invoice Not Found! " });
+    }
+    res.status(200).json({ message: "Invoice Deleted Successfully! " });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 async function addEntry(req, res) {
   try {
     const { id } = req.params;
     const { date, ticket, haulFrom, haulTo, weight, ratePerTonne } = req.body;
     const invoice = await Invoice.findById(id);
-    if(!invoice){
-      return res.status(404).json({ message: "Invoice Not Found! "});
+    if (!invoice) {
+      return res.status(404).json({ message: "Invoice Not Found! " });
     }
-    invoice.entries.push({ date, ticket, haulFrom, haulTo, weight, ratePerTonne });
+    invoice.entries.push({
+      date,
+      ticket,
+      haulFrom,
+      haulTo,
+      weight,
+      ratePerTonne,
+    });
     const addedEntry = await invoice.save();
     res.status(200).json(addedEntry);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
+async function deleteEntry(req, res) {
+  try {
+    const { id, entryId } = req.params;
+    const invoice = await Invoice.findById(id);
+    if(!invoice){
+      return res.status(404).json({message: "Invoice Not Found! "});
+    }
+    invoice.entries.pull(entryId);
+    await invoice.save();
+    res.status(200).json({message: "Entry Deleted Successfully! "})
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -80,4 +114,11 @@ async function getInvoicesById(req, res) {
   }
 }
 
-export { getAllInvoices, getInvoicesById, createInvoice, addEntry };
+export {
+  getAllInvoices,
+  getInvoicesById,
+  createInvoice,
+  addEntry,
+  deleteInvoice,
+  deleteEntry
+};
