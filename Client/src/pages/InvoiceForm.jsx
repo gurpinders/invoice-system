@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -19,7 +19,7 @@ function InvoiceForm(){
     const { id } = useParams();
     const isEditMode = id !== undefined && id !== "new";
 
-    async function fetchInvoices(){
+    const fetchInvoices = useCallback(async() => {
         try {
             const response = await axios.get(`http://localhost:3001/api/invoices/${id}`);
             const invoice = response.data;
@@ -31,7 +31,7 @@ function InvoiceForm(){
             console.error('Error fetching invoice:', error);
             setLoading(false);
         }
-    }
+    }, [id])
 
     const handleSaveInvoice = async() => {
         try {
@@ -46,7 +46,7 @@ function InvoiceForm(){
         }
     }
 
-    const fetchLocations = async() => {
+    const fetchLocations = useCallback(async() => {
         try {
             const fromResponse = await axios.get('http://localhost:3001/api/locations/from');
             const toResponse = await axios.get('http://localhost:3001/api/locations/to');
@@ -55,7 +55,7 @@ function InvoiceForm(){
         } catch (error) {
             console.error('Error fetching locations:', error);
         }
-    }
+    }, [])
 
     const handleAddEntry = async() => {
         if (!invoiceId) {
@@ -115,7 +115,7 @@ function InvoiceForm(){
 
             setLoading(false);
         }
-    },[id, isEditMode])
+    },[id, isEditMode, fetchInvoices, fetchLocations])
 
     useEffect(() => {
         const fetchRate = async () => {
