@@ -23,7 +23,7 @@ function InvoiceForm(){
 
     const fetchInvoices = useCallback(async() => {
         try {
-            const response = await axios.get(`http://localhost:3001/api/invoices/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/invoices/${id}`); 
             const invoice = response.data;
             setInvoiceNumber(invoice.invoiceNumber);
             setEntries(invoice.entries);
@@ -38,7 +38,7 @@ function InvoiceForm(){
     const handleSaveInvoice = async() => {
         try {
             if(!isEditMode){
-                const response = await axios.post('http://localhost:3001/api/invoices', {invoiceNumber});
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/invoices`, {invoiceNumber});
                 setInvoiceId(response.data._id);
                 alert("Invoice Created Successfully!");
             }
@@ -50,8 +50,8 @@ function InvoiceForm(){
 
     const fetchLocations = useCallback(async() => {
         try {
-            const fromResponse = await axios.get('http://localhost:3001/api/locations/from');
-            const toResponse = await axios.get('http://localhost:3001/api/locations/to');
+            const fromResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/locations/from`);
+            const toResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/locations/to`);
             setFromLocations(fromResponse.data);
             setToLocations(toResponse.data);
         } catch (error) {
@@ -79,7 +79,7 @@ function InvoiceForm(){
                 weight: entryWeight,
                 ratePerTonne: entryRate
             };
-            const response = await axios.post(`http://localhost:3001/api/invoices/${invoiceId}/entries`,entryData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/invoices/${invoiceId}/entries`, entryData);
             setEntries(response.data.entries);
             setEntryDate('');
             setEntryTicket('');
@@ -97,9 +97,7 @@ function InvoiceForm(){
     const handleDeleteEntry = async (entryId) => {
         if (window.confirm('Are you sure you want to delete this entry?')) {
           try {
-            const response = await axios.delete(
-              `http://localhost:3001/api/invoices/${invoiceId}/entries/${entryId}`
-            );
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/invoices/${invoiceId}/entries/${entryId}`);
             setEntries(response.data.entries);
             alert('Entry deleted successfully!');
           } catch (error) {
@@ -210,7 +208,7 @@ function InvoiceForm(){
         const fetchRate = async () => {
           if (entryHaulFrom && entryHaulTo) {
             try {
-              const rateResponse = await axios.get(`http://localhost:3001/api/rates/search?haulFrom=${entryHaulFrom}&haulTo=${entryHaulTo}`);
+              const rateResponse = await axios.get(`${import.meta.env.VITE_API_URL}/api/rates/search?haulFrom=${entryHaulFrom}&haulTo=${entryHaulTo}`);
               setEntryRate(rateResponse.data.rate);
             } catch (error) {
               console.error('Error fetching rate:', error);

@@ -12,7 +12,7 @@ function Dashboard(){
 
     async function fetchInvoices(){
         try {
-            const response = await axios.get('http://localhost:3001/api/invoices');
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/invoices`);
             setInvoices(response.data);
             setLoading(false);
         } catch (error) {
