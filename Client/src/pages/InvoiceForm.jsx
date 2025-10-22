@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 function InvoiceForm(){
     const [invoiceNumber, setInvoiceNumber] = useState("");
@@ -107,6 +109,93 @@ function InvoiceForm(){
         }
     };
 
+    const generatePDF = () => {
+        if (!invoiceId || entries.length === 0) {
+            alert('Please create an invoice and add entries before generating PDF');
+            return;
+        }
+
+        const doc = new jsPDF();
+        
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        doc.text('1391495 Ontario Inc.', 20, 20);
+        doc.text('O/A L.S. Haulage', 20, 27);
+
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(10);
+        doc.text('4 Yellow Avens Blvd', 20, 34);
+        doc.text('Brampton, Ontario L6R 0K5', 20, 39);
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'bold');
+        doc.text('Strada Aggregates Inc.', 140, 20);
+        doc.text('30 Floral Parkway', 140, 27);
+
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(10);
+        doc.text('Concord, Ontario', 140, 34);
+        doc.text('L4K 4R1', 140, 39);
+
+        doc.setFontSize(20);
+        doc.setFont(undefined, 'bold');
+        doc.text('INVOICE', 105, 55, { align: 'center' });
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'normal');
+        doc.text(`Invoice Number: ${invoiceNumber}`, 20, 70);
+
+        const tableData = entries.map(entry => [
+            new Date(entry.date).toLocaleDateString(),
+            entry.ticket,
+            'B. Sandhu', 
+            '127A',        
+            entry.haulFrom,
+            entry.haulTo,
+            entry.weight.toFixed(2),
+            `$${entry.ratePerTonne.toFixed(2)}`,
+            `$${(entry.weight * entry.ratePerTonne).toFixed(2)}`
+        ]);
+        
+        autoTable(doc, {
+            startY: 80,
+            head: [['Date', 'Ticket', 'Driver', 'Truck', 'Haul From', 'Haul To', 'Weight', 'Rate/Tonne', 'Amount']],
+            body: tableData,
+            theme: 'grid',
+            styles: { fontSize: 9, cellPadding: 3 },
+            headStyles: { fillColor: [41, 128, 185], textColor: 255, fontStyle: 'bold' },
+            columnStyles: {
+                6: { halign: 'right' },
+                7: { halign: 'right' },
+                8: { halign: 'right' }
+            }
+        });
+
+        const subtotal = entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0);
+        const fee = subtotal * 0.07;
+        const total = subtotal - fee;
+
+        const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 150;
+
+        doc.setFontSize(11);
+        doc.setFont(undefined, 'normal');
+        
+        const totalsX = 140;
+        doc.text(`Subtotal:`, totalsX, finalY);
+        doc.text(`$${subtotal.toFixed(2)}`, 190, finalY, { align: 'right' });
+        
+        doc.text(`Less 7% Fee:`, totalsX, finalY + 7);
+        doc.text(`$${fee.toFixed(2)}`, 190, finalY + 7, { align: 'right' });
+        
+        doc.setFont(undefined, 'bold');
+        doc.setFontSize(12);
+        doc.line(totalsX, finalY + 12, 190, finalY + 12);
+        doc.text(`Total:`, totalsX, finalY + 19);
+        doc.text(`$${total.toFixed(2)}`, 190, finalY + 19, { align: 'right' });
+
+        doc.save(`Invoice_${invoiceNumber}.pdf`);
+    }
+
     useEffect(() =>{
         fetchLocations();
         if(isEditMode){
@@ -121,8 +210,6 @@ function InvoiceForm(){
         const fetchRate = async () => {
           if (entryHaulFrom && entryHaulTo) {
             try {
-              // fetch rate from API
-              // set the rate
               const rateResponse = await axios.get(`http://localhost:3001/api/rates/search?haulFrom=${entryHaulFrom}&haulTo=${entryHaulTo}`);
               setEntryRate(rateResponse.data.rate);
             } catch (error) {
@@ -265,6 +352,14 @@ function InvoiceForm(){
                 <p className="flex justify-between text-gray-700 mb-2">Subtotal: ${entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0).toFixed(2)}</p>
                 <p className="flex justify-between text-gray-700 mb-2">Less 7% Fee: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.07).toFixed(2)}</p>
                 <p className="flex justify-between text-gray-900 font-bold text-lg pt-4 border-t-2 border-gray-300"><strong>Total: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.93).toFixed(2)}</strong></p>
+                <button onClick={generatePDF} 
+                    className="w-full mt-6 bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition flex items-center justify-center gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z" clipRule="evenodd" />
+                    </svg>
+                    Generate PDF
+                </button>
             </div>
             )}
         </div>
