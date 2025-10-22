@@ -442,8 +442,6 @@ GET /api/rates/search?haulFrom=Dufferin Quarry&haulTo=Kennedy Caledon
 2. Test all functionality on production
 3. Verify MongoDB Atlas IP whitelist (0.0.0.0/0)
 
-**Detailed deployment guide:** [CUSTOM_DEPLOYMENT_STEPS.md](CUSTOM_DEPLOYMENT_STEPS.md)
-
 ---
 
 ## 📁 Project Structure
