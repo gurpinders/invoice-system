@@ -47,7 +47,7 @@ function Dashboard(){
                     className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition duration-300 cursor-pointer"
                     >
                         <p className="text-lg font-semibold text-blue-600 mb-3">{invoice.invoiceNumber}</p>
-                        <p className="text-2xl font-bold text-green-600">${invoice.total}</p>
+                        <p className="text-2xl font-bold text-green-600">${invoice.total.toFixed(2)}</p>
                     </div>
                 ))}
             </div>
