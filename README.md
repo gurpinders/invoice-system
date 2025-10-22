@@ -6,7 +6,7 @@
 [![Backend API](https://img.shields.io/badge/API-live-blue.svg)](https://invoice-system-backend.onrender.com)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-![Invoice System Dashboard](screenshots/dashboard.png)
+![Invoice System Dashboard](Screenshots/dashboard.png)
 
 ---
 
@@ -121,22 +121,22 @@ A responsive web application with:
 
 ### Dashboard
 
-![Dashboard View](screenshots/dashboard.png)
+![Dashboard View](Screenshots/dashboard.png)
 _Main dashboard showing all invoices with quick navigation_
 
 ### Invoice Creation
 
-![Create Invoice](screenshots/create-invoice.png)
+![Create Invoice](Screenshots/create-invoice_blank.png)
 _Invoice creation form with entry management_
 
 ### Invoice Form
 
-![Invoice Form](screenshots/invoice-form.png)
+![Invoice Form](Screenshots/create_invoice_with_entries.png)
 _Detailed invoice with entries and calculations_
 
 ### PDF Generation
 
-![PDF Preview](screenshots/pdf-preview.png)
+![PDF Preview](Screenshots/pdf-preview.png)
 _Professional PDF invoice output_
 
 ### Mobile View (iPad)
