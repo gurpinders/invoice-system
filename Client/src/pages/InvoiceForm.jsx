@@ -144,7 +144,7 @@ function InvoiceForm(){
         doc.text(`Invoice Number: ${invoiceNumber}`, 20, 70);
 
         const tableData = entries.map(entry => [
-            new Date(entry.date).toLocaleDateString(),
+            entry.date.split('T')[0],
             entry.ticket,
             'B. Sandhu', 
             '127A',        
@@ -332,7 +332,7 @@ function InvoiceForm(){
             <tbody>
                 {entries.map((entry) => (
                 <tr key={entry._id}>
-                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{new Date(entry.date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.date.split('T')[0]}}</td>
                     <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.ticket}</td>
                     <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.haulFrom}</td>
                     <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.haulTo}</td>
