@@ -560,7 +560,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - GitHub: [@gurpinders](https://github.com/gurpinders)
 - LinkedIn: [Your LinkedIn](https://linkedin.com/in/your-profile)
-- Email: your.email@example.com
+- Email: psandhu0124@gmail.com
 - Portfolio: [your-portfolio.com](https://your-portfolio.com)
 
 **Project Link:** [https://github.com/gurpinders/invoice-system](https://github.com/gurpinders/invoice-system)
@@ -597,6 +597,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **⭐ Star this repo if you find it helpful!**
 
-Made with ❤️ by Gurpinder Singh
+Made by Gurpinderjeet Sandhu
 
 </div>
