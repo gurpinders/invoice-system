@@ -126,7 +126,7 @@ _Main dashboard showing all invoices with quick navigation_
 
 ### Invoice Creation
 
-![Create Invoice](Screenshots/create-invoice_blank.png)
+![Create Invoice](Screenshots/create_invoice_blank.png)
 _Invoice creation form with entry management_
 
 ### Invoice Form
