@@ -140,107 +140,131 @@ function InvoiceForm(){
     }
 
     return (
-        <div>
-            <button onClick={() => navigate("/")}> ← Back To Dashboard</button>
-            <h1>{isEditMode ? "Edit Invoice" : "Create New Invoice"}</h1>
+        <div className="max-w-6xl mx-auto p-8 bg-gray-50 min-h-screen">
+            <button onClick={() => navigate("/")} className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition mb-6"> ← Back To Dashboard</button>
+            <h1 className="text-3xl font-bold text-gray-900 mb-8">{isEditMode ? "Edit Invoice" : "Create New Invoice"}</h1>
+            <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Invoice Number (Period):</label>
+                <input 
+                    type="text"
+                    value={invoiceNumber}
+                    onChange={(e) => setInvoiceNumber(e.target.value)} 
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                />
+            </div>
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <p className="text-gray-700 font-medium">Driver: B. Sandhu</p>
+                <p className="text-gray-700 font-medium">Truck: 127A</p>
+            </div>
             
-            <label>Invoice Number (Period):</label>
-            <input 
-                type="text"
-                value={invoiceNumber}
-                onChange={(e) => setInvoiceNumber(e.target.value)} 
-            />
-            <p>Driver: B. Sandhu</p>
-            <p>Truck: 127A</p>
-            <button onClick={handleSaveInvoice}>
+            <button onClick={handleSaveInvoice} className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition mb-8">
                 {isEditMode ? 'Update Invoice' : 'Create Invoice'}
             </button>
-            <h2>Add Entry:</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-gray-300">Add Entry:</h2>
 
-            <label>Date:</label>
-            <input 
-                type="date"
-                value={entryDate}
-                onChange={(e) => setEntryDate(e.target.value)}
-            />
+        <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date:</label>
+                <input 
+                    type="date"
+                    value={entryDate}
+                    onChange={(e) => setEntryDate(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                />
+            </div>
 
-            <label>Ticket:</label>
-            <input 
-                type="text"
-                value={entryTicket}
-                onChange={(e) => setEntryTicket(e.target.value)}
-            />
-
-            <label>Haul From:</label>
-            <select value={entryHaulFrom} onChange={(e) => setEntryHaulFrom(e.target.value)}>
-                <option value="">Select Haul From:</option>
-                {fromLocations.map((location) => (
-                    <option key={location} value={location}>
-                        {location}
-                    </option>
-                ))}
-            </select> 
-
-            <label>Haul To:</label>
-            <select value={entryHaulTo} onChange={(e) => setEntryHaulTo(e.target.value)}>
-                <option value="">Select Haul To:</option>
-                {toLocations.map((location) => (
-                    <option key={location} value={location}>
-                        {location}
-                    </option>
-                ))}
-            </select>
-
-            <label>Weight:</label>
-            <input 
-                type="text"
-                value={entryWeight}
-                onChange={(e) => setEntryWeight(e.target.value)}
-            />
-
-            <label>Rate:</label>
-            <input 
-                type="text"
-                value={entryRate}
-                onChange={(e) => setEntryRate(e.target.value)}
-            /> 
-            <button onClick={handleAddEntry}>Add Entry</button>
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Ticket:</label>
+                <input 
+                    type="text"
+                    value={entryTicket}
+                    onChange={(e) => setEntryTicket(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                />
+            </div>
+                
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Haul From:</label>
+                <select value={entryHaulFrom} onChange={(e) => setEntryHaulFrom(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    <option value="">Select Haul From:</option>
+                    {fromLocations.map((location) => (
+                        <option key={location} value={location}>
+                            {location}
+                        </option>
+                    ))}
+                </select> 
+            </div>
+                
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Haul To:</label>
+                <select value={entryHaulTo} onChange={(e) => setEntryHaulTo(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none">
+                    <option value="">Select Haul To:</option>
+                    {toLocations.map((location) => (
+                        <option key={location} value={location}>
+                            {location}
+                        </option>
+                    ))}
+                </select>
+            </div>
+                
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Weight:</label>
+                <input 
+                    type="text"
+                    value={entryWeight}
+                    onChange={(e) => setEntryWeight(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                />
+            </div>
+                
+            <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Rate:</label>
+                <input 
+                    type="text"
+                    value={entryRate}
+                    onChange={(e) => setEntryRate(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                /> 
+            </div>
+        </div>
+                
+            <button onClick={handleAddEntry} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition mb-8 w-full md:w-auto">Add Entry</button>
             
-            <h2>Invoice Entries</h2>
-            <table>
-            <thead>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 pb-2 border-b-2 border-gray-300">Invoice Entries</h2>
+            <table className="w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm">
+            <thead className="bg-gray-100">
                 <tr>
-                <th>Date</th>
-                <th>Ticket</th>
-                <th>Haul From</th>
-                <th>Haul To</th>
-                <th>Weight</th>
-                <th>Rate/Tonne</th>
-                <th>Amount</th>
-                <th>Actions</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Date</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Ticket</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Haul From</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Haul To</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Weight</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Rate/Tonne</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Amount</th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {entries.map((entry) => (
                 <tr key={entry._id}>
-                    <td>{new Date(entry.date).toLocaleDateString()}</td>
-                    <td>{entry.ticket}</td>
-                    <td>{entry.haulFrom}</td>
-                    <td>{entry.haulTo}</td>
-                    <td>{entry.weight}</td>
-                    <td>${entry.ratePerTonne}</td>
-                    <td>${(entry.weight * entry.ratePerTonne).toFixed(2)}</td>
-                    <td><button onClick={() => handleDeleteEntry(entry._id)}>Delete</button></td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{new Date(entry.date).toLocaleDateString()}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.ticket}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.haulFrom}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.haulTo}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">{entry.weight}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">${entry.ratePerTonne}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700">${(entry.weight * entry.ratePerTonne).toFixed(2)}</td>
+                    <td className="px-4 py-3 border-t border-gray-200 text-gray-700"><button onClick={() => handleDeleteEntry(entry._id)} className="bg-red-600 hover:bg-red-700 text-white text-sm py-1 px-3 rounded transition">Delete</button></td>
                 </tr>
                 ))}
             </tbody>
             </table>
             {entries.length > 0 && (
-            <div>
-                <h3>Invoice Totals</h3>
-                <p>Subtotal: ${entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0).toFixed(2)}</p>
-                <p>Less 7% Fee: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.07).toFixed(2)}</p>
-                <p><strong>Total: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.93).toFixed(2)}</strong></p>
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mt-6 max-w-md ml-auto">
+                <h3 className="text-xl font-bold text-gray-800 mb-4">Invoice Totals</h3>
+                <p className="flex justify-between text-gray-700 mb-2">Subtotal: ${entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0).toFixed(2)}</p>
+                <p className="flex justify-between text-gray-700 mb-2">Less 7% Fee: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.07).toFixed(2)}</p>
+                <p className="flex justify-between text-gray-900 font-bold text-lg pt-4 border-t-2 border-gray-300"><strong>Total: ${(entries.reduce((sum, entry) => sum + (entry.weight * entry.ratePerTonne), 0) * 0.93).toFixed(2)}</strong></p>
             </div>
             )}
         </div>
