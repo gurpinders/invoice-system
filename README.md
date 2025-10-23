@@ -141,7 +141,7 @@ _Professional PDF invoice output_
 
 ### Mobile View (iPad)
 
-![iPad View](screenshots/ipad-view.png)
+![iPad View](Screenshots/dashboard_iPad_landscape.png)
 _Responsive design optimized for iPad_
 
 ---
