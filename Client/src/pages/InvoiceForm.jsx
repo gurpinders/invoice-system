@@ -147,7 +147,7 @@ function InvoiceForm(){
             entry.date.split('T')[0],
             entry.ticket,
             'B. Sandhu', 
-            '127A',        
+            'AUT 225',        
             entry.haulFrom,
             entry.haulTo,
             entry.weight.toFixed(2),
@@ -239,7 +239,7 @@ function InvoiceForm(){
             </div>
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
                 <p className="text-gray-700 font-medium">Driver: B. Sandhu</p>
-                <p className="text-gray-700 font-medium">Truck: 127A</p>
+                <p className="text-gray-700 font-medium">Truck: AUT 225</p>
             </div>
             
             <button onClick={handleSaveInvoice} className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg shadow-md transition mb-8">
