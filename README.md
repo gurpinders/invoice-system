@@ -448,22 +448,27 @@ GET /api/rates/search?haulFrom=Dufferin Quarry&haulTo=Kennedy Caledon
 
 ```
 invoice-system/
-├── backend/
+├── Server/
 │   ├── models/
 │   │   ├── Invoice.js          # Invoice schema
-│   │   ├── Rate.js             # Rate schema
-│   │   └── Location.js         # Location schema (if applicable)
+│   │   └── Rate.js             # Rate schema
+│   │ 
+│   ├── controllers/
+│   │   ├── invoiceController.js         # Invoice Controller
+│   │   ├── locationController.js        # Location Controller
+│   │   └── rateController.js            # Rate Controller
+│   │      
 │   ├── routes/
-│   │   ├── invoices.js         # Invoice routes
-│   │   ├── locations.js        # Location routes
-│   │   └── rates.js            # Rate routes
+│   │   ├── invoiceRoutes.js         # Invoice routes
+│   │   ├── locationRoutes.js        # Location routes
+│   │   └── rateRoutes.js            # Rate routes
 │   ├── server.js               # Main server file
 │   ├── package.json            # Backend dependencies
 │   └── .env                    # Environment variables (not in git)
 │
-├── frontend/
+├── Client/
 │   ├── src/
-│   │   ├── components/
+│   │   ├── pages/
 │   │   │   ├── Dashboard.jsx   # Main dashboard component
 │   │   │   └── InvoiceForm.jsx # Invoice creation/edit form
 │   │   ├── App.jsx             # Root component
@@ -477,9 +482,7 @@ invoice-system/
 │
 ├── screenshots/                # Project screenshots
 ├── README.md                   # This file
-├── DEPLOYMENT_GUIDE.md         # Detailed deployment instructions
 ├── .gitignore                  # Git ignore rules
-└── LICENSE                     # MIT License
 ```
 
 ---
@@ -545,12 +548,6 @@ Contributions are welcome! Here's how you can help:
 - Test your changes thoroughly
 - Update documentation as needed
 - Add comments for complex logic
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
